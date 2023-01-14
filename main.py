@@ -61,7 +61,32 @@ def RGBToWaveLength(r,g,b):
 def wavelengthToFreq(wl):
     # freq  = speedOfLight/waveLength
     return 299792458//wl*10e9    # This is returned in HZ
-    # return 299792458//wl    # This is returned in GHZ
+
+def plotFreqFromWl(wl):
+    # 'smort' solution later
+    quality = .3
+    time        = np.arange(0, 20, quality)
+    amplitude   = np.sin(time*wl[0][0])
+    plot.plot(time, amplitude)
+    time        = np.arange(20, 30, quality)
+    amplitude   = np.sin(time*wl[1][0])
+    plot.plot(time, amplitude)
+    time        = np.arange(30, 70, quality)
+    amplitude   = np.sin(time*wl[2][0])
+    plot.plot(time, amplitude)
+    time        = np.arange(70, 80, quality)
+    amplitude   = np.sin(time*wl[3][0])
+    plot.plot(time, amplitude)
+    time        = np.arange(80, 100, quality)
+    amplitude   = np.sin(time*wl[4][0])
+    plot.plot(time, amplitude)
+
+    plot.title('Sine wave')
+    plot.xlabel('Time')
+    plot.ylabel('Amplitude = sin(time*frequency)')
+    plot.grid(True, which='both')
+    plot.axhline(y=0, color='k')
+    plot.show()
 
 if __name__ == '__main__':
     image = readImage('./assets/green_blue.png')
@@ -70,13 +95,8 @@ if __name__ == '__main__':
     wave_lengths = [RGBToWaveLength(r,g,b) for r,g,b in dominant_colors]
     print("Dominant colors", dominant_colors)
 
-    #Wave lengths in nano m.
+    # Wave lengths in nano m.
     print("Wave lengths", wave_lengths)
-    # print("Wave lengths[0]", wave_lengths[0][0])
     print(wavelengthToFreq(wave_lengths[0][0]))
-
-    # parser = argparse.ArgumentParser(
-    #                 prog = 'LimitlessKnowledge',
-    #                 description = 'Parser for blind people',
-    #                 epilog = 'Thanks buddy')
-    # parser.add_argument()
+    plotFreqFromWl(wave_lengths)
+    
