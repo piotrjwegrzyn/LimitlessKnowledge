@@ -4,13 +4,12 @@ import numpy as np
 import matplotlib.pyplot as plot
 
 def readImage(path):
-    image = Image.open("./assets/red.png")
-    return image
+    return Image.open(path)
 
 def imageToFreq(image):
     rgb_im = image.convert('RGB')
     r, g, b = rgb_im.getpixel((1, 1))
-    
+
     RGB_f = np.array([r,g,b]) / 255
 
     # Using the individual definitions:
@@ -40,7 +39,7 @@ if __name__ == '__main__':
     # Get x values of the sine wave
 
     time        = np.arange(0, 100, 10)
-    amplitude   = np.sin(time)
+    amplitude   = 1 # np.sin(time)
 
     plot.plot(time, amplitude)
     plot.title('Sine wave')
