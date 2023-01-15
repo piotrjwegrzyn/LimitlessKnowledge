@@ -3,6 +3,7 @@ from starlette.middleware.cors import CORSMiddleware
 from utilities import getConvertedData
 import json
 from fastapi import Response
+import numpy as np
 
 app = FastAPI()
 
@@ -20,9 +21,5 @@ def read_root():
 
 @app.post("/convert")
 def convert(imageBase64: str):
-    print(getConvertedData(imageBase64))
-    piotrek = getConvertedData(imageBase64)
-    print(type(piotrek))
-    # return Response(content=piotrek, media_type="application/json")
-    return json.dumps(piotrek, indent=4)
-    # return "ss"
+    # print(getConvertedData(imageBase64))
+    return json.dumps(getConvertedData(imageBase64))

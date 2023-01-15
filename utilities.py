@@ -53,14 +53,16 @@ def RGBToWaveLength(r,g,b):
         colour.models.RGB_COLOURSPACE_sRGB.whitepoint,
         colour.models.RGB_COLOURSPACE_sRGB.matrix_RGB_to_XYZ,
     )
+
     xy = colour.XYZ_to_xy(XYZ)
+    
     wl, xy_1, xy_2 = colour.dominant_wavelength(
         xy, colour.models.RGB_COLOURSPACE_sRGB.whitepoint
     )
 
     wl, xy_1, xy_2 = colour.convert(RGB_f, "Output-Referred RGB", "Dominant Wavelength")
 
-    return wl, xy_1, xy_2
+    return wl.tolist(), xy_1.tolist(), xy_2.tolist()
 
 
 '''
@@ -78,14 +80,9 @@ Description
 '''
 def getConvertedData(imageBase64):
     image = readImage(imageBase64)
+
     dominant_colors = imageToParts(image)
     wave_lengths = [RGBToWaveLength(r,g,b) for r,g,b in dominant_colors]
     frequencies = wavelengthToFreq(wave_lengths)
 
-    data = {
-        "dominant_colors": dominant_colors,
-        "wave_lengths": wave_lengths,
-        "frequencies": frequencies
-    }
-
-    return data
+    return {"dominant_colors": dominant_colors, "wave_lengths": wave_lengths, "frequencies": frequencies}
