@@ -17,9 +17,8 @@ app.add_middleware(
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {"204": "No Content"}
 
 @app.post("/convert")
 def convert(imageBase64: str):
-    # print(getConvertedData(imageBase64))
     return json.dumps(getConvertedData(imageBase64))

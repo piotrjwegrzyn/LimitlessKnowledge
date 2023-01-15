@@ -8,10 +8,7 @@ from io import BytesIO
 Description
 '''
 def readImage(imageBase64):
-    image_as_bytes = str.encode(imageBase64) # convert string to bytes
-    img_recovered = base64.b64decode(image_as_bytes) # decode base64string
-    image = Image.open(BytesIO(img_recovered))
-    return image
+    return Image.open(BytesIO(base64.b64decode(str.encode(imageBase64))))
 
 '''
 Description
@@ -69,7 +66,6 @@ def RGBToWaveLength(r,g,b):
 Description
 '''
 def wavelengthToFreq(wave_lengths):
-    # freq  = speedOfLight/waveLength
     frequencies = list()
     for wl in wave_lengths:
         frequencies.append(299792458 // wl[0]*10e9)
