@@ -2,8 +2,7 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 from utilities import getConvertedData
 import json
-from fastapi import Response
-import numpy as np
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -15,10 +14,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+class Base64(BaseModel):
+    imageBase64: str
+
 @app.get("/")
 def read_root():
     return {"204": "No Content"}
 
 @app.post("/convert")
-def convert(imageBase64: str):
-    return json.dumps(getConvertedData(imageBase64))
+def convert(base64: Base64):
+    return json.dumps(getConvertedData(base64.imageBase64))
