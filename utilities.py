@@ -5,13 +5,19 @@ import base64
 from io import BytesIO
 
 '''
-Description
+Attributes
+----------
+imageBase64 : str
+    Image decoded from base64
 '''
 def readImage(imageBase64):
     return Image.open(BytesIO(base64.b64decode(str.encode(imageBase64))))
 
 '''
-Description
+Attributes
+----------
+image : PIL.Image
+    Sniping image to 5 parts and getting their dominant colour
 '''
 def imageToParts(image):
     w, h = image.size
@@ -27,7 +33,10 @@ def imageToParts(image):
     return dominant_colors
 
 '''
-Description
+Attributes
+----------
+image : PIL.Image
+    Return dominant color in given image
 '''
 def getDominantColor(image):
     width, height = image.size
@@ -38,7 +47,12 @@ def getDominantColor(image):
     return dominant_color
 
 '''
-Description
+Attributes
+----------
+r : int in range 0-255
+g : int in range 0-255
+b : int in range 0-255
+    Converting RGB values to wavelength and dominant wavelength
 '''
 def RGBToWaveLength(r,g,b):
     RGB_f = np.array([r,g,b]) / 255
@@ -63,7 +77,10 @@ def RGBToWaveLength(r,g,b):
 
 
 '''
-Description
+Attributes
+----------
+wave_lengths : float
+    Convert wavelength to frequency
 '''
 def wavelengthToFreq(wave_lengths):
     frequencies = list()
@@ -72,7 +89,10 @@ def wavelengthToFreq(wave_lengths):
     return frequencies  # This is returned in HZ
 
 '''
-Description
+Attributes
+----------
+imageBase64 : PIL.Image
+    Return dominant color in given image
 '''
 def getConvertedData(imageBase64):
     image = readImage(imageBase64)
